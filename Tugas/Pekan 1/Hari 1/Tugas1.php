@@ -66,7 +66,6 @@
         }
     }
     
-    //main program
     $elang_1 = new elang("elang_1");
     
     $harimau_1 = new harimau("harimau_1");
