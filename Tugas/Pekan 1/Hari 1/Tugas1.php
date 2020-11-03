@@ -65,14 +65,14 @@
             echo "=============================================<br><hr>";
         }
     }
-    
+
     $elang_1 = new elang("elang_1");
-    
+
     $harimau_1 = new harimau("harimau_1");
 
     $elang_1->getinfohewan();
     $harimau_1->getinfohewan();
-    
+
     while ($harimau_1->darah >0) {
         $elang_1->atraksi();
         echo $elang_1->serang($harimau_1);
@@ -83,4 +83,4 @@
             break;
         }
     }
-?>
+?> 
