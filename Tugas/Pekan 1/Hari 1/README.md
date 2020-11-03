@@ -1,4 +1,4 @@
-Hari 1 | Tugas Pendalaman OOP PHP
+# SOAL Hari 1 | Tugas Pendalaman OOP PHP
 Pada tugas atau latihan kali ini, kita akan membuat game sederhana dengan menggunakan konsep OOP pada PHP.
 
 Pada game ini terdapat elang dan harimau. Mereka bisa saling serang. Dimana ketika elang menyerang, maka darah dari harimau akan berkurang. Begitupun sebaliknya.
