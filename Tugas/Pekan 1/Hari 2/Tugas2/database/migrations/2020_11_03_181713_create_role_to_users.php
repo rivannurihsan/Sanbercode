@@ -13,8 +13,8 @@ class CreateRoleToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('id_role')->references('id_role')->on('roles')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -25,9 +25,9 @@ class CreateRoleToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->dropForeign(['id_users']);
-            $table->dropColumn(['id_users']);
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['id_role']);
+            $table->dropColumn(['id_role']);
         });
     }
 }

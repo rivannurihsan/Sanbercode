@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRolesTable extends Migration
 {
+    
     /**
      * Run the migrations.
      *
@@ -15,7 +16,7 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->uuid('id_role')->primary();
-            $table->uuid('id_users');
+            // $table->uuid('id_users');
             $table->string('role_name',20);
             $table->timestamps();
         });

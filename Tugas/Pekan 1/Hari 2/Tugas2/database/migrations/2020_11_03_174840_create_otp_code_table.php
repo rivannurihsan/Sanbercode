@@ -14,10 +14,10 @@ class CreateOtpCodeTable extends Migration
     public function up()
     {
         Schema::create('otps', function (Blueprint $table) {
-            $table->uuid('otp_id')->unique();
+            $table->uuid('otp_id')->primary();
             $table->uuid('id_users');
-            $table->string('otp_code');
-            $table->dateTime('exp_date');
+            $table->string('otp_code')->unique();
+            $table->timestamp('exp_date')->useCurrent();
             $table->timestamps();
         });
     }
