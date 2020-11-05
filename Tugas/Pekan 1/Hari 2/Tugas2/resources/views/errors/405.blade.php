@@ -60,7 +60,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Forbidden Page ! You Are Not Admin
+                    Forbidden Page ! BUKAN ADMIN
                 </div>
 
             </div>
