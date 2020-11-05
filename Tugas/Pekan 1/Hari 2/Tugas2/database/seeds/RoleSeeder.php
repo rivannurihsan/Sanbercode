@@ -12,14 +12,14 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->insert([
             [
-            'id_role'       => Str::uuid(),
-            'nama_role'     => 'Admin',
+            'id_role'       => '1',
+            'role_name'     => 'Admin',
             'created_at'    => now(),
             'updated_at'    => now()
             ],
             [
             'id_role'       => '0',
-            'nama_role'     => 'User',
+            'role_name'     => 'User',
             'created_at'    => now(),
             'updated_at'    => now()
             ]

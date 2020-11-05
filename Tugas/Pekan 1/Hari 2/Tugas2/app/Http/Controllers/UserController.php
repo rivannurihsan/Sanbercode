@@ -13,13 +13,4 @@ class UserController extends Controller
         return "sukses";
     }
 
-    public function withoutemail()
-    {
-        return "email sudah verifikasi masuk sini";
-    }
-
-    public function withoutadmin()
-    {
-        return "email dan admin verifikasi masuk sini";
-    }
 }
