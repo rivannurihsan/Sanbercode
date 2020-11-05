@@ -17,7 +17,7 @@ class CreateOtpCodeTable extends Migration
             $table->uuid('otp_id')->primary();
             $table->uuid('id_users');
             $table->string('otp_code')->unique();
-            $table->timestamp('exp_date')->useCurrent();
+            $table->dateTime('valid_until');
             $table->timestamps();
         });
     }

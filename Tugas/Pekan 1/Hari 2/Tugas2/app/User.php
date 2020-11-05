@@ -60,4 +60,27 @@ class User extends Authenticatable
         return $this->hasMany('App\Role');
     }
 
+    public function verif()
+    {
+        if($this->email_verified_at != null )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function status()
+    {
+        if($this->id_role =='0')
+        {
+            return true;
+        }
+        else
+        {
+            false;
+        }
+    }
 }
