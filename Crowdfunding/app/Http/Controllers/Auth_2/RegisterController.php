@@ -9,6 +9,10 @@ use Hash;
 use Carbon\Carbon;
 use App\User;
 use App\OtpCode;
+use App\Events\RegenerateOtpUserEvent;
+use App\Events\RegisterUserEvent;
+use App\Mail\RegisterOtpMail;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -31,15 +35,20 @@ class RegisterController extends Controller
             'email'     => request('email'),
             'password'  => Hash::make(request('password'))
         ]);
+        $data['user'] = $user;
 
         OtpCode::create([
             'otp'          => rand(1000,9999),
             'user_id'       => $user->id,
-            'valid_until'   =>  now()->addHours(2)
-        ]);
-        return response()->json([
+            'valid_until'   =>  now()->addMinutes(2)
+            ]);
+
+            event(new RegisterUserEvent($user));
+
+            return response()->json([
             'response_code'     => "00",
-            'response_message'  => "Silakan cek email anda untuk verif, kode otp hanya berlaku 2 jam !"
+            'response_message'  => "Silakan cek email anda untuk verif, kode otp hanya berlaku 2 jam !",
+            'data'              => $data
         ]);
     }
 }

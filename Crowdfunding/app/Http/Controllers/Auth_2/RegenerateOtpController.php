@@ -8,6 +8,7 @@ use App\User;
 use App\OtpCode;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use App\Events\RegisterUserEvent;
 
 class RegenerateOtpController extends Controller
 {
@@ -35,7 +36,7 @@ class RegenerateOtpController extends Controller
             'user_id'       => $user->id,
             'valid_until'   =>  now()->addHours(2)
         ]);
-
+        event(new RegisterUserEvent($user));
         return response()->json([
             'response_code' => "00",
             'response_message' => 'silahkan cek email',
