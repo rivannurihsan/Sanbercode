@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\User;
+use App\OtpCode;
 
 class RegisterOtpMail extends Mailable
 {
@@ -17,7 +18,7 @@ class RegisterOtpMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
@@ -29,13 +30,13 @@ class RegisterOtpMail extends Mailable
      */
     public function build()
     {
-        return $this->from('rivannurihsan@gmail.com')
+        return $this->from('example@example.com')
                     ->subject('Registrasi berhasil ! ')
                     ->view('send_email_user_registered')
                     ->with([
                         'name'  => $this->user->name,
                         'email' => $this->user->email,
-                        'otp'   => $this->user->otp->otp
+                        'otp'   => $this->user->otp
                     ]);
     }
 }
