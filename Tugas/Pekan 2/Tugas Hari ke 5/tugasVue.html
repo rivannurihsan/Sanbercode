@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <title>Vue Task</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae autem magnam deleniti, 
+          veniam dolore quia earum officia libero dicta non, eligendi culpa! Cum omnis odit cupiditate aliquam temporibus! Earum, 
+          distinctio?</p>
+        <ul>
+          <post 
+            v-for="comment in comments" 
+            :post="comment"
+          >
+          </post>
+        </ul>
+        
+        <div id="comment-box">
+          <div >
+            <textarea 
+              type="text" 
+              rows="5" 
+              cols="50" 
+              placeholder="Enter a comment..." 
+              v-model="comment" 
+              @keyup.enter="postComment"
+              style="margin-left:40px;"
+            > 
+
+            </textarea>
+          </div>
+        </div>
+    
+      </div>
+    
+    </div>
+    
+    <template id="CommentPost">
+      <li style="list-style: none; margin-top: 30px;" >
+        <br>
+        <span>Score :{{ votes }} || </span>
+        <a>{{ post.title }} || </a>
+        <a>{{ moment(post.date).format('MMMM Do YYYY, h:mm:ss a') }} || </a>
+        <br>
+        <div>
+          <button @click="like" :class="{disabled: likes}">like</button>
+          <button @click="dislike" :class="{disabled: dislikes}"> dislike</button>
+        </div>
+      </li>
+    </template>
+    <script>
+      Vue.component('post', {
+        template: "#CommentPost",
+        props: ['post'],
+        data: function() {
+          return {
+            likes: false,
+            dislikes: false
+          };
+        },
+        methods: {
+          dislike: function() {
+            this.dislikes = !this.dislikes;
+            this.likes = false;
+          },
+          like: function() {
+            this.likes = !this.likes;
+            this.dislikes = false;
+          },
+        },
+        computed: {
+          votes: function() {
+
+            if (this.likes) {
+              return this.post.votes + 1;
+            } else if (this.dislikes) {
+              return this.post.votes - 1;
+            } else {
+              return this.post.votes;
+            }
+
+          }
+        }
+      });
+
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          comments: [{
+            title: "Comment one",
+            date : new Date(),
+            votes: 2
+          }, {
+            title: "Comment two",
+            date : new Date(),
+            votes: 2
+          }],
+          comment: ""
+        },
+        methods: {
+          postComment: function() {
+            this.comments.push({
+              title: this.comment,
+              date : new Date(),
+              votes: 0
+            })
+            this.comment = "";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

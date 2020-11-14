@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    </head>
+    <body>
+        <div id="applikasi">
+            <div>
+                    <ul id="comments_1">
+                        <post 
+                            v-for="comment in comments" 
+                            :post="comment"
+                        ></post>
+                    </ul>
+                    
+                    <div id="TextAreaComment">
+                        <div >
+                            <textarea 
+                                type="text" 
+                                rows="2" 
+                                cols="50" 
+                                placeholder="Masukan Komentar" 
+                                v-model="comment" 
+                                @keyup.enter="postComment"
+                                style="margin-left:40px;"
+                            > 
+                            </textarea>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+
+        <template id="Posting">
+            <li style="list-style: none; margin-top: 30px;" >
+                <div>
+                    <button @click="like" :class="{disabled: likes}">+</button>              
+                </div>
+                <a>{{ post.title }} || </a>
+                <a>{{ moment(post.date).format('DD-MM-YYYY') }} || </a>
+                <a> Score :{{ score }}</a><br>
+                <div>
+                    <button @click="dislike" :class="{disabled: dislikes}">-</button>
+                </div>
+            </li>
+        </template>
+
+        <script>
+            Vue.component('post', {
+                template: "#Posting",
+                props: ['post'],
+                data: function() {
+                    return {
+                        likes: false,
+                        dislikes: false
+                    };
+                },
+                methods: {
+                    dislike: function() {
+                        this.dislikes = !this.dislikes;
+                        this.likes = false;
+                    },
+                    like: function() {
+                        this.likes = !this.likes;
+                        this.dislikes = false;
+                    },
+                },
+                computed: {
+                    score: function() {
+
+                        if (this.likes) {
+                            return this.post.score + 1;
+                        } else if (this.dislikes) {
+                            return this.post.score - 1;
+                        } else {
+                            return this.post.score;
+                        }
+
+                    }
+                }
+            });
+
+
+
+            var Add_new_comment = new Vue({
+                el: "#applikasi",
+                data: {
+                comments: [{
+                    title: "Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1",
+                    date : new Date(),
+                    score: 2
+                }, {
+                    title: "Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2",
+                    date : new Date(),
+                    score: 2
+                }],
+                comment: ""
+                },
+                methods: {
+                    postComment: function() {
+                        this.comments.push({
+                        title: this.comment,
+                        date : new Date(),
+                        score: 0
+                        })
+                        this.comment = "";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
